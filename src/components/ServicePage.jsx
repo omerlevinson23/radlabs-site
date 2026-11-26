@@ -28,7 +28,7 @@ export default function ServicePage({ slug }) {
           <p className="lead">{s.intro}</p>
           <div className="hero__actions" style={{ marginTop: 'var(--space-lg)' }}>
             {orderable
-              ? <a className="btn btn--primary" href={orderHref} onClick={e => navigate(e, `order?test=${slug}`)}>להזמנה אונליין</a>
+              ? <a className="btn btn--primary" href={orderHref} onClick={e => navigate(e, `order?test=${slug}`)}>להצעת מחיר ללא עלות</a>
               : <a className="btn btn--primary" href="#contact" onClick={e => jumpTo(e, 'contact')}>להזמנת בדיקה</a>}
             <WhatsAppButton text={`שלום, אשמח לפרטים על ${s.name}`} label="שאלה בוואטסאפ" />
           </div>
@@ -48,7 +48,7 @@ export default function ServicePage({ slug }) {
               ? <><p className="plate__label">מחיר</p><p className="plate__price">{s.price}</p></>
               : <p className="plate__price plate__price--s">{contact.promise}</p>}
             {orderable
-              ? <a className="btn btn--primary" href={orderHref} onClick={e => navigate(e, `order?test=${slug}`)}>להזמנה אונליין</a>
+              ? <a className="btn btn--primary" href={orderHref} onClick={e => navigate(e, `order?test=${slug}`)}>להצעת מחיר ללא עלות</a>
               : <a className="btn btn--primary" href="#contact" onClick={e => jumpTo(e, 'contact')}>להזמנת בדיקה</a>}
             {related.length > 0 && <>
               <p className="plate__label" style={{ marginTop: 'var(--space-md)' }}>שירותים קשורים</p>

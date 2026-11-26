@@ -72,8 +72,8 @@ export default function Contact({ defaultNeed }) {
           <div role="status" className="done">
             <p>{status === 'sent' ? 'קיבלנו, תודה' : 'פתחנו לכם את וואטסאפ'}</p>
             <p>{status === 'sent'
-              ? `${contact.promise}, למספר ${values.phone}. רוצים תשובה מהירה יותר? כתבו לנו בוואטסאפ.`
-              : `ההודעה כבר כתובה שם, נשאר רק ללחוץ שליחה. ${contact.promise}. וואטסאפ לא נפתח? אפשר מכאן:`}</p>
+              ? `נחזור אליכם למספר ${values.phone} עם הצעת מחיר ללא עלות. רוצים תשובה מהירה יותר? כתבו לנו בוואטסאפ.`
+              : `ההודעה כבר כתובה שם, נשאר רק ללחוץ שליחה. וואטסאפ לא נפתח? אפשר מכאן:`}</p>
             <a className="btn btn--primary" href={waLink(message)} target="_blank" rel="noopener"><WaIcon /> שליחה בוואטסאפ<span className="visually-hidden"> (נפתח בחלון חדש)</span></a>
             <button type="button" className="link" style={{ background: 'none', border: 0, padding: 0, cursor: 'pointer', color: 'inherit', font: 'inherit' }} onClick={() => setStatus('idle')}>חזרה לטופס</button>
           </div>

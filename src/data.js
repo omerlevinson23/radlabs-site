@@ -9,7 +9,9 @@ export const contact = {
   address: 'רוטשילד 54ב׳, קדימה',
   whatsappText: 'שלום, אשמח לקבל הצעת מחיר לבדיקה',
   // One response promise, used everywhere on the site. Change it here only.
-  promise: 'נחזור אליכם עם הצעת מחיר', // no time promise until Omer confirms one
+  promise: 'הצעת מחיר ללא עלות', // Omer gives prices only in a personal quote, never on the site
+  permit: '1281', // Ministry of Environmental Protection permit number (Omer, 2026-11-26)
+  turnaround: 'תעודה תוך 4 ימים', // Omer, 2026-11-26
 }
 
 export const waLink = (text = contact.whatsappText) =>
@@ -154,13 +156,13 @@ export const steps = [
   { title: 'פונים אלינו', text: 'וואטסאפ, טלפון או טופס קצר.', time: null },
   { title: 'מציבים גלאי', text: 'טכנאי מגיע ומציב גלאי מכויל.', time: null }, // PLACEHOLDER timing, e.g. 'תוך 3 ימים'
   { title: 'ניתוח במעבדה', text: 'הגלאי נבדק במעבדה שלנו.', time: null }, // PLACEHOLDER timing
-  { title: 'תעודה רשמית', text: 'תוצאה, הסבר והמלצות לפי הצורך.', time: null },
+  { title: 'תעודה תוך 4 ימים', text: 'תעודה רשמית עם התוצאה, הסבר והמלצות לפי הצורך.', time: null },
 ]
 
 export const proof = [
-  { title: 'מעבדה מורשית', text: 'היתר מעבדה והיתר ראדון מהמשרד להגנת הסביבה' },
+  { title: 'היתר מס׳ 1281', text: 'היתר מעבדה והיתר ראדון מהמשרד להגנת הסביבה' },
+  { title: 'לא רק ראדון', text: 'עשרות שנות ניסיון במדידת חומרים רדיואקטיביים: חומרי בניין, קרקע, מזון וחומרי גלם ותעשייה' },
   { title: 'מייסדים מהתחום', text: 'שמואל לוינסון ונתן לביא, עשרות שנות ניסיון בקמ״ג וברדיוכימיה' },
-  { title: 'מחקר ואקדמיה', text: 'שיתוף פעולה עם הטכניון, אוניברסיטת בן-גוריון והמשרד להגנת הסביבה' },
 ]
 
 // PLACEHOLDER: replace with real customer quotes (with their permission).

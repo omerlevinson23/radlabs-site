@@ -6,9 +6,9 @@ import { track } from '../lib/track.js'
 import { href, navigate } from '../router.js'
 import { Spinner, WaIcon } from './ui.jsx'
 
-// Online ordering: pick a test, give details and a preferred date, then pay on the provider's page when the
-// product has a payment link (data.js → orderables[].payUrl). Without a link the order still arrives and
-// RAD-LABs confirms the price and sends payment. Without an order endpoint, the order goes out by WhatsApp.
+// Ordering is a quote request: pick a test, give details and a preferred date. RAD-LABs replies with a personal
+// quote and a secure payment link (Omer does not publish prices). No price and no payment happen on this page.
+// Without an order endpoint, the request goes out by WhatsApp.
 
 const normalizePhone = p => p.replace(/[\s()-]/g, '').replace(/^\+?972/, '0')
 const PHONE = /^0\d{8,9}$/
@@ -36,10 +36,6 @@ function validate(v, product) {
   return e
 }
 
-function withOrder(url, id) {
-  try { const u = new URL(url); u.searchParams.set('order', id); return u.toString() } catch { return url }
-}
-
 export default function OrderPage() {
   const first = new URLSearchParams(location.search).get('test') || (location.hash.split('?')[1] ? new URLSearchParams(location.hash.split('?')[1]).get('test') : '')
   const [v, setV] = useState({ slug: orderables.some(o => o.slug === first) ? first : '', name: '', phone: '', email: '', city: '', address: '', date: '', window: 'morning', notes: '', terms: false, marketing: false })
@@ -57,7 +53,7 @@ export default function OrderPage() {
   const aria = k => ({ 'aria-invalid': !!errors[k], 'aria-describedby': errors[k] ? `oe-${k}` : undefined })
 
   const summary = id => [
-    `שלום, אני רוצה להזמין: ${product?.name}.`, `מספר הזמנה: ${id}.`, `שם: ${v.name}, טלפון: ${v.phone}${v.email ? `, מייל: ${v.email}` : ''}.`,
+    `שלום, אשמח להצעת מחיר ל: ${product?.name}.`, `מספר בקשה: ${id}.`, `שם: ${v.name}, טלפון: ${v.phone}${v.email ? `, מייל: ${v.email}` : ''}.`,
     `יישוב: ${v.city}${v.address ? `, ${v.address}` : ''}.`,
     product?.booking && v.date ? `מועד מועדף: ${v.date.split('-').reverse().join('.')}, ${WINDOWS.find(w => w[0] === v.window)[1]}.` : '',
     v.notes ? `הערות: ${v.notes}` : '',
@@ -70,7 +66,7 @@ export default function OrderPage() {
     if (Object.keys(errs).length) { document.getElementById(`o-${Object.keys(errs)[0]}`)?.focus(); return }
     const payload = buildPayload('order', {
       customer: { name: v.name.trim(), phone: v.phone.trim(), phone_e164: toE164(v.phone), email: v.email.trim() || undefined, city: v.city.trim(), address: v.address.trim() || undefined },
-      product: { slug: product.slug }, // name, price and payment link are filled in by the server from src/catalog.js
+      product: { slug: product.slug }, // the server fills in the name from src/catalog.js
       booking: product.booking && v.date ? { preferred_date: v.date, window: v.window } : undefined,
       notes: v.notes.trim() || undefined,
       consent: {
@@ -88,12 +84,6 @@ export default function OrderPage() {
     try {
       await sendOrder({ ...payload, website: e.target.website?.value || '' })
       track('order', { method: 'form', item: product.slug })
-      if (product.payUrl) {
-        track('begin_checkout', { item: product.slug })
-        try { sessionStorage.setItem('rl-last-order', JSON.stringify({ id: payload.id, slug: product.slug })) } catch { /* fine */ }
-        location.href = withOrder(product.payUrl, payload.id)
-        return
-      }
       setStatus('sent')
     } catch {
       setStatus('failed')
@@ -105,17 +95,17 @@ export default function OrderPage() {
     <>
       <section className="page-head container" aria-labelledby="order-title">
         <p className="crumbs"><a href={href('')} onClick={e => navigate(e, '')}>דף הבית</a></p>
-        <h1 id="order-title">הזמנת בדיקה</h1>
-        <p className="lead">בוחרים בדיקה, ממלאים פרטים ומועד מועדף, ואנחנו מאשרים את המועד. {contact.promise}.</p>
+        <h1 id="order-title">הזמנת בדיקה והצעת מחיר</h1>
+        <p className="lead">בוחרים בדיקה וממלאים פרטים ומועד מועדף. נחזור אליכם עם הצעת מחיר ללא עלות ונאשר מועד. התעודה מוכנה תוך 4 ימים.</p>
       </section>
       <section className="section" aria-label="טופס הזמנה">
         <div className="container order">
           {done ? (
             <div role="status" className="done">
-              <p>{status === 'sent' ? 'ההזמנה התקבלה' : 'פתחנו לכם את וואטסאפ'}</p>
-              <p>מספר ההזמנה: <span className="fig">{orderId}</span>.</p>
+              <p>{status === 'sent' ? 'הבקשה התקבלה' : 'פתחנו לכם את וואטסאפ'}</p>
+              <p>מספר הבקשה: <span className="fig">{orderId}</span>.</p>
               <p>{status === 'sent'
-                ? `נחזור אליכם למספר ${v.phone} כדי לאשר מועד${product?.payUrl ? '' : ' ולשלוח קישור לתשלום'}.`
+                ? `נחזור אליכם למספר ${v.phone} עם הצעת מחיר, מועד וקישור מאובטח לתשלום.`
                 : 'פרטי ההזמנה כבר כתובים שם, נשאר רק ללחוץ שליחה. וואטסאפ לא נפתח? אפשר מכאן:'}</p>
               <a className="btn btn--primary" href={waLink(summary(orderId))} target="_blank" rel="noopener"><WaIcon /> וואטסאפ<span className="visually-hidden"> (נפתח בחלון חדש)</span></a>
             </div>
@@ -128,7 +118,6 @@ export default function OrderPage() {
                     <input type="radio" name="slug" value={o.slug} id={i === 0 ? 'o-slug' : undefined} checked={v.slug === o.slug} onChange={set('slug')} />
                     <span className="pick__name">{o.name}</span>
                     <span className="pick__note">{o.note}</span>
-                    {o.price && <span className="pick__price">{o.price} כולל מע״מ</span>}
                   </label>
                 ))}
                 {err('slug')}
@@ -176,9 +165,9 @@ export default function OrderPage() {
               )}
               <div className="hero__actions" style={{ alignItems: 'center' }}>
                 <button type="submit" className="btn btn--primary" disabled={status === 'sending'} aria-busy={status === 'sending'}>
-                  {status === 'sending' ? <><Spinner /> שולחים</> : product?.payUrl && config.orderEndpoint ? 'להזמנה ולתשלום' : config.orderEndpoint ? 'שליחת ההזמנה' : <><WaIcon /> שליחת ההזמנה בוואטסאפ</>}
+                  {status === 'sending' ? <><Spinner /> שולחים</> : config.orderEndpoint ? 'בקשת הצעת מחיר' : <><WaIcon /> בקשת הצעת מחיר בוואטסאפ</>}
                 </button>
-                <p className="note">{product?.payUrl && config.orderEndpoint ? 'התשלום בעמוד מאובטח של חברת הסליקה.' : 'התשלום רק אחרי שנאשר איתכם מועד ומחיר.'} <a href={href('cancellation')}>מדיניות ביטול</a></p>
+                <p className="note">אין תשלום עכשיו. משלמים רק אחרי שמאשרים את ההצעה, בקישור מאובטח. <a href={href('cancellation')}>מדיניות ביטול</a></p>
               </div>
             </form>
           )}

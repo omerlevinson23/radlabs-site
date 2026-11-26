@@ -82,22 +82,23 @@ function Index({ who, setWho }) {
 }
 
 
-// The hero alone on the first screen: what is sold and to whom, one hard fact, the two actions, the 50+ cast beside it.
+// The hero alone on the first screen: what is sold and to whom, the two actions, the permit number cast beside it.
 function Hero() {
   return (
     <section id="top" aria-labelledby="hero-title" className="hero" data-enter data-sc-act="flow">
       <div className="container hero__top">
         <div className="hero__copy">
           <h1 id="hero-title">בדיקות ראדון וקרינה, ממעבדה מורשית</h1>
-          <p className="lead">לבעלי דירות, קבלנים, יצרנים ותעשייה, עם היתרי המשרד להגנת הסביבה.</p>
+          <p className="lead">עשרות שנות ניסיון במדידת חומרים רדיואקטיביים, לבעלי דירות, קבלנים, יצרנים ותעשייה. {contact.promise} ו{contact.turnaround}.</p>
           <div className="hero__actions">
-            <a className="btn btn--primary" href={href('order')} onClick={e => navigate(e, 'order')}>להזמנת בדיקה</a>
+            <a className="btn btn--primary" href={href('order')} onClick={e => navigate(e, 'order')}>להצעת מחיר ללא עלות</a>
             <WhatsAppButton text="שלום, אשמח לשאול על בדיקת ראדון" label="שאלה בוואטסאפ" />
           </div>
         </div>
         <div className="plate cast glass" data-sc-parallax="-0.12">
-          <span className="cast__fig" aria-hidden="true"><span data-sc-count="0 50" data-sc-count-ms="1200">50</span>+</span>
-          <span className="cast__unit"><span className="visually-hidden">יותר מ-50 </span>שנות ניסיון בקרינה</span>
+          <span className="cast__label">היתר מס׳</span>
+          <span className="cast__fig fig">{contact.permit}</span>
+          <span className="cast__unit">מהמשרד להגנת הסביבה</span>
         </div>
       </div>
     </section>
@@ -139,7 +140,7 @@ function Why() {
   return (
     <section id="about" aria-labelledby="about-title" className="section">
       <div className="container split">
-        <Head id="about-title" title="למה RAD-LABs" lead="מעבדה ותיקה בתחום הקרינה בישראל." />
+        <Head id="about-title" title="למה RAD-LABs" lead="עשרות שנות ניסיון במדידת חומרים רדיואקטיביים, לא רק ראדון." />
         <ul className="proof">
           {proof.map(p => (
             <li key={p.title}><h3>{p.title}</h3><p>{p.text}</p></li>
