@@ -4,7 +4,7 @@ import { config } from '../config.js'
 import { buildPayload, sendOrder, toE164 } from '../lib/order.js'
 import { track } from '../lib/track.js'
 import { href, navigate } from '../router.js'
-import { Fill, Spinner, WaIcon } from './ui.jsx'
+import { Spinner, WaIcon } from './ui.jsx'
 
 // Online ordering: pick a test, give details and a preferred date, then pay on the provider's page when the
 // product has a payment link (data.js → orderables[].payUrl). Without a link the order still arrives and
@@ -15,7 +15,7 @@ const PHONE = /^0\d{8,9}$/
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const MARKETING_TEXT = 'אני מסכים/ה לקבל עדכונים ופרסומות מ-RAD-LABs בוואטסאפ, SMS ובמייל. אפשר להסיר בכל עת.'
 const TERMS_TEXT = 'קראתי ואני מסכים/ה לתנאי השירות, למדיניות הביטול ולמדיניות הפרטיות.'
-const WINDOWS = [['morning', 'בוקר (8:00–12:00)'], ['noon', 'צהריים (12:00–15:00)'], ['afternoon', 'אחר הצהריים (15:00–18:00)']]
+const WINDOWS = [['morning', 'בוקר'], ['noon', 'צהריים'], ['afternoon', 'אחר הצהריים']] // no hours until the lab confirms them
 
 const isoDay = d => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10)
 function minDate() { const d = new Date(); d.setDate(d.getDate() + 1); return isoDay(d) }
@@ -31,7 +31,6 @@ function validate(v, product) {
   if (product?.booking) {
     if (!v.address.trim()) e.address = 'נא למלא כתובת לביקור הטכנאי'
     if (v.date && v.date < minDate()) e.date = 'אפשר לבחור מחר והלאה'
-    if (v.date && new Date(v.date).getDay() === 6) e.date = 'אין ביקורים בשבת. נא לבחור יום אחר'
   }
   if (!v.terms) e.terms = 'נא לאשר את התנאים כדי להמשיך'
   return e
@@ -129,7 +128,7 @@ export default function OrderPage() {
                     <input type="radio" name="slug" value={o.slug} id={i === 0 ? 'o-slug' : undefined} checked={v.slug === o.slug} onChange={set('slug')} />
                     <span className="pick__name">{o.name}</span>
                     <span className="pick__note">{o.note}</span>
-                    <span className="pick__price">{o.price ? `${o.price} כולל מע״מ` : <Fill>מחיר יעודכן</Fill>}</span>
+                    {o.price && <span className="pick__price">{o.price} כולל מע״מ</span>}
                   </label>
                 ))}
                 {err('slug')}

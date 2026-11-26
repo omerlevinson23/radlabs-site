@@ -88,8 +88,8 @@ function Hero() {
     <section id="top" aria-labelledby="hero-title" className="hero" data-enter data-sc-act="flow">
       <div className="container hero__top">
         <div className="hero__copy">
-          <h1 id="hero-title">בדיקות ראדון וקרינה, ממעבדה מוסמכת</h1>
-          <p className="lead">לבעלי דירות, קבלנים, יצרנים ותעשייה, מאז שנות ה-70. עם היתרי המשרד להגנת הסביבה, ו{contact.promise}.</p>
+          <h1 id="hero-title">בדיקות ראדון וקרינה, ממעבדה מורשית</h1>
+          <p className="lead">לבעלי דירות, קבלנים, יצרנים ותעשייה, עם היתרי המשרד להגנת הסביבה.</p>
           <div className="hero__actions">
             <a className="btn btn--primary" href={href('order')} onClick={e => navigate(e, 'order')}>להזמנת בדיקה</a>
             <WhatsAppButton text="שלום, אשמח לשאול על בדיקת ראדון" label="שאלה בוואטסאפ" />
@@ -124,7 +124,7 @@ function Case() {
             {s.price
               ? <><p className="plate__label">מחיר לדירה</p><p className="plate__price">{s.price}</p></>
               : <p className="plate__price plate__price--s">{contact.promise}</p>}
-            <p>התוצאה: ריכוז ראדון ממוצע ביחידות Bq/m³, על תעודה רשמית של מעבדה מוסמכת.</p>
+            <p>התוצאה: ריכוז ראדון ממוצע ביחידות Bq/m³, על תעודה רשמית של המעבדה.</p>
             <ul className="ticks">{s.points.map(p => <li key={p}>{p}</li>)}</ul>
             <a className="link" href={href('radon-home')} onClick={e => navigate(e, 'radon-home')}>כל הפרטים על הבדיקה</a>
           </div>
@@ -139,7 +139,7 @@ function Why() {
   return (
     <section id="about" aria-labelledby="about-title" className="section">
       <div className="container split">
-        <Head id="about-title" title="למה RAD-LABs" lead="מעבדה ותיקה בתחום הקרינה בישראל, מאז שנות ה-70." />
+        <Head id="about-title" title="למה RAD-LABs" lead="מעבדה ותיקה בתחום הקרינה בישראל." />
         <ul className="proof">
           {proof.map(p => (
             <li key={p.title}><h3>{p.title}</h3><p>{p.text}</p></li>

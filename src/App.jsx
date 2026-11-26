@@ -10,7 +10,7 @@ import OrderPage from './components/OrderPage.jsx'
 import { ConsentBanner, ThanksPage, ReviewPage, useContactClicks } from './components/Extras.jsx'
 import { track } from './lib/track.js'
 
-const HOME_TITLE = 'RAD-LABs | בדיקות ראדון וקרינה ממעבדה מוסמכת'
+const HOME_TITLE = 'RAD-LABs | בדיקות ראדון וקרינה ממעבדה מורשית'
 
 export default function App() {
   const route = useRoute()

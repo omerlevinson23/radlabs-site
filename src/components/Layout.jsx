@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { contact, waLink } from '../data.js'
 import { href, jumpTo, navigate, sectionHref } from '../router.js'
 import { company } from '../legal/company.js'
-import { Fill, WaIcon } from './ui.jsx'
+import { WaIcon } from './ui.jsx'
 
 const nav = [
   ['services', 'שירותים'], ['process', 'איך זה עובד'], ['luft', 'גלאי LUFT'], ['about', 'אודות'], ['contact', 'צור קשר'],
@@ -53,7 +53,7 @@ export function Footer() {
   return (
     <footer className="foot">
       <div className="container">
-        <p className="foot__line">מעבדה מוסמכת לבדיקות ראדון וקרינה, מאז שנות ה-70.</p>
+        <p className="foot__line">מעבדה מורשית לבדיקות ראדון וקרינה.</p>
         <ul className="foot__links">
           <li><a className="link fig" href={`tel:+${contact.mobileIntl}`}>{contact.mobile}</a></li>
           <li><a className="link ltr" href={`mailto:${contact.email}`}>{contact.email}</a></li>
@@ -62,7 +62,7 @@ export function Footer() {
             <li key={slug}><a className="link" href={href(slug)} onClick={e => navigate(e, slug)}>{label}</a></li>)}
           <li><button type="button" className="link linkbtn" onClick={() => dispatchEvent(new Event('rl-consent-open'))}>העדפות עוגיות</button></li>
         </ul>
-        <p className="foot__legal">© {new Date().getFullYear()} {company.name}, ח.פ. {company.id.startsWith('[[') ? <Fill>{company.id.slice(2, -2)}</Fill> : <span className="fig">{company.id}</span>}</p>
+        <p className="foot__legal">© {new Date().getFullYear()} {company.name}{company.id.startsWith('[[') ? '' : <>, ח.פ. <span className="fig">{company.id}</span></>}</p>
       </div>
     </footer>
   )
