@@ -3,7 +3,7 @@ import { contact, labs, needs, paths, proof, services, steps, testimonials } fro
 import { href, navigate, sectionHref } from '../router.js'
 import { Head, WhatsAppButton } from './ui.jsx'
 import Contact from './Contact.jsx'
-import RadonMap from './RadonMap.jsx'
+import Statement from './Statement.jsx'
 import RadonGauge from './RadonGauge.jsx'
 
 // Hero, posture Index: a small head, one sentence, the action, then the service index as the lead.
@@ -100,6 +100,18 @@ function Hero() {
           <span className="cast__fig fig">{contact.permit}</span>
           <span className="cast__unit">מהמשרד להגנת הסביבה</span>
         </div>
+      </div>
+    </section>
+  )
+}
+
+// The radon sentence, revealed word by word as it scrolls into view.
+function RadonIntro() {
+  return (
+    <section id="radon" aria-labelledby="radon-title" className="section">
+      <div className="container statement map-intro">
+        <h2 className="visually-hidden" id="radon-title">מה זה ראדון</h2>
+        <Statement text={services['radon-home'].intro} />
       </div>
     </section>
   )
@@ -225,5 +237,5 @@ export default function Home({ section }) {
     const id = section || location.hash.slice(1)
     if (id) document.getElementById(id)?.scrollIntoView()
   }, [section])
-  return (<><Hero /><Index who={who} setWho={setWho} /><RadonMap /><Case /><Why /><Voices /><Luft /><RadonGauge /><Contact defaultNeed={NEED_FOR[who]} /></>)
+  return (<><Hero /><Index who={who} setWho={setWho} /><RadonIntro /><Case /><Why /><Voices /><Luft /><RadonGauge /><Contact defaultNeed={NEED_FOR[who]} /></>)
 }

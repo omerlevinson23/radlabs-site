@@ -97,7 +97,7 @@ Not used, and why:
 - **No fade-ins on rows or cards.** taste-skill bans them.
 - **No horizontal scroll.** Its direction is not built for right-to-left pages.
 
-## Radon map and result gauge (2026-11-26)
-`RadonMap.jsx` (section `#map`, after the statement): a d3 globe with real national averages (WHO Handbook on Indoor Radon 2009, Table 4; Israel 64 Bq/m³ from the Ministry of Environmental Protection). Drag to spin; click Israel to fly in to its districts. **District values are placeholders**, labelled on the page; replace `radon.districts` in `src/data.js` with RAD-LABs' own averages. Borders: world-atlas (Natural Earth) and amCharts geodata, which is linkware: keep the "amCharts" credit visible.
+## Radon sentence and result gauge (2026-11-26)
+The radon map (globe and districts) was removed at Omer's request on 2026-11-26; it is in git history (commit before "Remove radon map"). The radon sentence keeps its word-by-word reveal (`Statement.jsx`) in its own section `#radon`, after the services index.
 `RadonGauge.jsx` (section `#result`, before the order form): 0–400 Bq/m³, red from the 200 Bq/m³ action level. 72 is an example value.
-Later the same day Omer asked for the radon sentence to take less room: the pinned statement section was removed, and the same word-by-word reveal (`Statement.jsx`, no pin) now opens the `#map` section.
+

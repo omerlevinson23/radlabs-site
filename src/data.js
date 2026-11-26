@@ -175,35 +175,15 @@ export const testimonials = []
 export const needs = ['בדיקת ראדון לדירה או בית', 'קבלן / היתר בנייה / טופס 4', 'בדיקת חומרי בניין', 'תעשייה / מעבדה', 'גלאי LUFT', 'אחר']
 
 // Homepage sections that can be linked to directly, e.g. /#contact
-export const sections = ['services', 'map', 'process', 'about', 'luft', 'labs', 'result', 'contact']
+export const sections = ['services', 'radon', 'process', 'about', 'luft', 'labs', 'result', 'contact']
 
 // Optional: a form service URL (e.g. Formspree) that receives contact requests by email.
 // Leave empty and the form hands the request to WhatsApp instead.
 // Kept for older imports; the setting now lives in src/config.js (orderEndpoint).
 export { config as integrations } from './config.js'
 
-// Radon figures for the map and the gauge.
-// countries: REAL national averages in homes (arithmetic mean, Bq/m³), WHO Handbook on Indoor Radon (2009), Table 4.
-//   Israel: 64 Bq/m³ in a ground-floor room, 2006 survey (Ministry of Environmental Protection guideline 2).
-// districts: PLACEHOLDER examples, shown as such on the page. Replace with RAD-LABs' own averages per district.
-export const radon = {
-  actionLevel: 200,
-  countries: {
-    '036': ['אוסטרליה', 11], '040': ['אוסטריה', 99], '056': ['בלגיה', 48], '124': ['קנדה', 28], '203': ['צ׳כיה', 140],
-    '208': ['דנמרק', 59], '246': ['פינלנד', 120], '250': ['צרפת', 89], '276': ['גרמניה', 49], '300': ['יוון', 55],
-    '348': ['הונגריה', 82], '352': ['איסלנד', 10], '372': ['אירלנד', 89], '380': ['איטליה', 70], '392': ['יפן', 16],
-    '442': ['לוקסמבורג', 110], '484': ['מקסיקו', 140], '528': ['הולנד', 23], '554': ['ניו זילנד', 22], '578': ['נורווגיה', 89],
-    '616': ['פולין', 49], '620': ['פורטוגל', 62], '410': ['דרום קוריאה', 53], '703': ['סלובקיה', 87], '724': ['ספרד', 90],
-    '752': ['שוודיה', 108], '756': ['שווייץ', 78], '826': ['בריטניה', 20], '840': ['ארצות הברית', 46], '376': ['ישראל', 64],
-  },
-  // false: district values are examples. The live build (npm run build) then shows the districts without values;
-  // previews still show the examples. Set true once real averages are in.
-  districtsReady: false,
-  districts: {
-    'IL-Z': ['מחוז הצפון', 62], 'IL-HA': ['מחוז חיפה', 48], 'IL-M': ['מחוז המרכז', 44],
-    'IL-TA': ['מחוז תל אביב', 38], 'IL-JM': ['מחוז ירושלים', 57], 'IL-D': ['מחוז הדרום', 81],
-  },
-}
+// The gauge's action level: Ministry of Environmental Protection guideline 2 (2016), homes and schools, Bq/m³.
+export const radon = { actionLevel: 200 }
 
 // What can be ordered online lives in src/catalog.js (shared with the order function on the server).
 export { orderables } from './catalog.js'
