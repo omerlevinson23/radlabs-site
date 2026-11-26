@@ -91,3 +91,8 @@ Needs `WA_TOKEN`, `WA_PHONE_ID`, `WA_APP_SECRET`, `WA_VERIFY_TOKEN`. Its texts l
 | `WA_TOKEN`, `WA_PHONE_ID`, `WA_APP_SECRET`, `WA_VERIFY_TOKEN` | server, secret | WhatsApp Cloud API |
 
 `VITE_*` values are built into the site, so redeploy after changing them.
+
+## When an order is refused (HTTP 502 "upstream")
+The CRM (Google Apps Script) said no. Netlify → Logs → Functions → order shows "order: CRM refused <id> <status> <reply>".
+`forbidden` means the ?key= in ORDER_WEBHOOK_URL does not match SHARED_SECRET in the script's properties.
+After changing any environment variable in Netlify, redeploy (Deploys → Trigger deploy) so the function uses it.
