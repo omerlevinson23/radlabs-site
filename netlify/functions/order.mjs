@@ -119,8 +119,10 @@ export default async (req) => {
     res = await fetch(url, { method: 'POST', headers, body, redirect: 'follow', signal: AbortSignal.timeout(20000) })
     reply = await res.text()
   } catch { return json(504, { ok: false, error: 'upstream_timeout' }) }
-  if (!res.ok) return json(502, { ok: false, error: 'upstream' })
-  try { if (JSON.parse(reply).ok === false) return json(502, { ok: false, error: 'upstream' }) } catch { /* non-JSON 200 counts as accepted */ }
+  // Function logs (Netlify → Logs → Functions → order) get the CRM's status and a short reply, never the URL or key.
+  const why = () => console.error('order: CRM refused', o.id, res.status, String(reply).replace(/\s+/g, ' ').slice(0, 300))
+  if (!res.ok) { why(); return json(502, { ok: false, error: 'upstream' }) }
+  try { if (JSON.parse(reply).ok === false) { why(); return json(502, { ok: false, error: 'upstream' }) } } catch { /* non-JSON 200 counts as accepted */ }
   return json(200, { ok: true, id: o.id })
 }
 
