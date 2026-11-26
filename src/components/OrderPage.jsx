@@ -7,7 +7,7 @@ import { href, navigate } from '../router.js'
 import { Spinner, WaIcon } from './ui.jsx'
 
 // Ordering is a quote request: pick a test, give details and a preferred date. RAD-LABs replies with a personal
-// quote and a secure payment link (Omer does not publish prices). No price and no payment happen on this page.
+// quote; payment comes only after the test, by a link (customers fear paying upfront). No price or payment on this page.
 // Without an order endpoint, the request goes out by WhatsApp.
 
 const normalizePhone = p => p.replace(/[\s()-]/g, '').replace(/^\+?972/, '0')
@@ -96,7 +96,7 @@ export default function OrderPage() {
       <section className="page-head container" aria-labelledby="order-title">
         <p className="crumbs"><a href={href('')} onClick={e => navigate(e, '')}>דף הבית</a></p>
         <h1 id="order-title">הזמנת בדיקה והצעת מחיר</h1>
-        <p className="lead">בוחרים בדיקה וממלאים פרטים ומועד מועדף. נחזור אליכם עם הצעת מחיר ללא עלות ונאשר מועד. התעודה מוכנה תוך 4 ימים.</p>
+        <p className="lead">בוחרים בדיקה וממלאים פרטים ומועד מועדף. נחזור אליכם עם הצעת מחיר ללא עלות ונאשר מועד. התעודה מוכנה תוך 4 ימים, ומשלמים רק אחרי הבדיקה.</p>
       </section>
       <section className="section" aria-label="טופס הזמנה">
         <div className="container order">
@@ -105,7 +105,7 @@ export default function OrderPage() {
               <p>{status === 'sent' ? 'הבקשה התקבלה' : 'פתחנו לכם את וואטסאפ'}</p>
               <p>מספר הבקשה: <span className="fig">{orderId}</span>.</p>
               <p>{status === 'sent'
-                ? `נחזור אליכם למספר ${v.phone} עם הצעת מחיר, מועד וקישור מאובטח לתשלום.`
+                ? `נחזור אליכם למספר ${v.phone} עם הצעת מחיר ומועד. משלמים רק אחרי הבדיקה.`
                 : 'פרטי ההזמנה כבר כתובים שם, נשאר רק ללחוץ שליחה. וואטסאפ לא נפתח? אפשר מכאן:'}</p>
               <a className="btn btn--primary" href={waLink(summary(orderId))} target="_blank" rel="noopener"><WaIcon /> וואטסאפ<span className="visually-hidden"> (נפתח בחלון חדש)</span></a>
             </div>
@@ -167,7 +167,7 @@ export default function OrderPage() {
                 <button type="submit" className="btn btn--primary" disabled={status === 'sending'} aria-busy={status === 'sending'}>
                   {status === 'sending' ? <><Spinner /> שולחים</> : config.orderEndpoint ? 'בקשת הצעת מחיר' : <><WaIcon /> בקשת הצעת מחיר בוואטסאפ</>}
                 </button>
-                <p className="note">אין תשלום עכשיו. משלמים רק אחרי שמאשרים את ההצעה, בקישור מאובטח. <a href={href('cancellation')}>מדיניות ביטול</a></p>
+                <p className="note">אין תשלום מראש. משלמים רק אחרי הבדיקה, בקישור לתשלום מאובטח. <a href={href('cancellation')}>מדיניות ביטול</a></p>
               </div>
             </form>
           )}

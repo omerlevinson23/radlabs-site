@@ -89,7 +89,7 @@ function Hero() {
       <div className="container hero__top">
         <div className="hero__copy">
           <h1 id="hero-title">בדיקות ראדון וקרינה, ממעבדה מורשית</h1>
-          <p className="lead">עשרות שנות ניסיון במדידת חומרים רדיואקטיביים, לבעלי דירות, קבלנים, יצרנים ותעשייה. {contact.promise} ו{contact.turnaround}.</p>
+          <p className="lead">עשרות שנות ניסיון במדידת חומרים רדיואקטיביים, לבעלי דירות, קבלנים, יצרנים ותעשייה. {contact.promise}, {contact.turnaround} ו{contact.payment}.</p>
           <div className="hero__actions">
             <a className="btn btn--primary" href={href('order')} onClick={e => navigate(e, 'order')}>להצעת מחיר ללא עלות</a>
             <WhatsAppButton text="שלום, אשמח לשאול על בדיקת ראדון" label="שאלה בוואטסאפ" />

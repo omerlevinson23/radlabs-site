@@ -12,6 +12,7 @@ export const contact = {
   promise: 'הצעת מחיר ללא עלות', // Omer gives prices only in a personal quote, never on the site
   permit: '1281', // Ministry of Environmental Protection permit number (Omer, 2026-11-26)
   turnaround: 'תעודה תוך 4 ימים', // Omer, 2026-11-26
+  payment: 'תשלום רק אחרי הבדיקה', // no upfront payment: customers fear scams (Omer, 2026-11-26)
 }
 
 export const waLink = (text = contact.whatsappText) =>
