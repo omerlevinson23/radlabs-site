@@ -50,7 +50,10 @@ export default function RadonMap() {
       pinG.selectAll('g').attr('transform', d => `translate(${proj(d) || [-999, -999]})`)
         .attr('opacity', d => geoDistance(d, [-proj.rotate()[0], -proj.rotate()[1]]) < Math.PI / 2 ? 1 : 0)
     }
-    const size = () => { const r = el.getBoundingClientRect(); W = r.width; H = r.height; R = Math.min(W, H) * 0.44; svg.attr('viewBox', `0 0 ${W} ${H}`); draw() }
+    const size = () => { const r = el.getBoundingClientRect(); W = r.width; H = r.height; R = Math.min(W, H) * 0.44; svg.attr('viewBox', `0 0 ${W} ${H}`)
+      // narrow screens: the two small coastal districts' names overlap their neighbours, so leave them to the tooltip
+      labelG.selectAll('text').attr('display', d => W < 600 && ['IL-TA', 'IL-HA'].includes(d.properties.id) ? 'none' : null)
+      draw() }
     const place = (e, d) => {
       const r = el.getBoundingClientRect(); let cx, cy
       if (e.type === 'focus') { const p = proj(geoCentroid(d)); cx = p[0] * r.width / W; cy = p[1] * r.height / H } else { cx = e.clientX - r.left; cy = e.clientY - r.top }
