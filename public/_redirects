@@ -1,0 +1,18 @@
+# Netlify: keep old Wix addresses working (301) and send every page to the app.
+/blank-4      /radon-home          301
+/copy-of      /radon-self-test     301
+/blank-5      /radon-reduction     301
+/blank-2      /radon-contractors   301
+/blank-8      /soil-tests          301
+/blank-6      /green-building      301
+/blank-7      /sealing-tests       301
+/blank-18     /gamma-spectrometry  301
+/copy-of-1    /contamination       301
+/blank-3      /radon-institutions  301
+/blank-10     /consulting          301
+/blank        /consulting          301
+/blank-12     /consulting          301
+/services-6   /accessibility       301
+/api/order    /.netlify/functions/order     200
+/api/whatsapp /.netlify/functions/whatsapp  200
+/*            /index.html          200

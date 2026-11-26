@@ -1,0 +1,35 @@
+{
+  "name": "radlabs-site",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:preview": "vite build --mode preview",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource/frank-ruhl-libre": "^5.3.0",
+    "@fontsource/heebo": "^5.3.0",
+    "@netlify/blobs": "^8.2.0",
+    "d3-drag": "^3.0.1",
+    "d3-ease": "^3.0.2",
+    "d3-geo": "^3.1.2",
+    "d3-interpolate": "^3.0.2",
+    "d3-scale": "^4.0.3",
+    "d3-selection": "^3.0.1",
+    "d3-shape": "^3.2.1",
+    "d3-transition": "^3.0.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "topojson-client": "^3.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.5",
+    "@vitejs/plugin-react": "^4.7.0",
+    "tailwindcss": "^4.3.5",
+    "vite": "^6.4.6",
+    "vite-plugin-singlefile": "^2.3.4"
+  },
+  "private": true,
+  "type": "module"
+}
